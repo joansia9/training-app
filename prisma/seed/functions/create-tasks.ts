@@ -6,7 +6,7 @@ export async function createTask() {
       {
         title: 'shower',
         description: 'clean',
-        completedDate: '',
+        completedDate: new Date(),
         status: 'Complete',
         userId: 'user',
       },
