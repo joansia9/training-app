@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "FhssStarterApp": {
+    "JoanieStarterApp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -71,10 +71,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "FhssStarterApp:build:production"
+              "buildTarget": "JoanieStarterApp:build:production"
             },
             "development": {
-              "buildTarget": "FhssStarterApp:build:development"
+              "buildTarget": "JoanieStarterApp:build:development"
             }
           },
           "defaultConfiguration": "development"
