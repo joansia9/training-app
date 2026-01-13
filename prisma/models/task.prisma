@@ -5,7 +5,7 @@ model Task {
   //
   title         String
   description   String
-  completedDate DateTime
+  completedDate DateTime?
   status        TaskStatus
 
   user   User   @relation(fields: [userId], references: [id])
