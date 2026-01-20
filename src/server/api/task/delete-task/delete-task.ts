@@ -7,7 +7,7 @@ const deleteTaskInput = z.object({
   id: z.string(),
 });
 
-const deleteTaskOutput = z.void({});
+const deleteTaskOutput = z.void();
 
 export const deleteTask = authorizedProcedure
   .meta({ requiredPermissions: ['manage-task'] })
@@ -15,9 +15,10 @@ export const deleteTask = authorizedProcedure
   .output(deleteTaskOutput)
   .mutation(async opts => {
     try {
-      await prisma.user.delete({
+      await prisma.task.delete({
         where: {
           id: opts.input.id,
+          userId: opts.ctx.userId,
         },
       });
     } catch (error) {
