@@ -10,6 +10,7 @@ import { HomePage } from './pages/home/home.page';
 import { DefaultLayout } from './layouts/default/default.layout';
 import { AdminPage } from './pages/admin/admin.page';
 import { Permission } from '../security';
+import { TasksPage } from './pages/tasks/tasks.page';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,11 @@ export const routes: Routes = [
         path: 'admin',
         component: AdminPage,
         canActivate: [permissionGuard<Permission>(['view-secret'])],
+      },
+      {
+        path: 'user',
+        component: TasksPage,
+        canActivate: [permissionGuard<Permission>(['manage-task'])],
       },
       { path: 'server-error', component: ServerErrorPage },
       { path: 'forbidden', component: ForbiddenPage },

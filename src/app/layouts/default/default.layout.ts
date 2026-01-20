@@ -19,6 +19,7 @@ export class DefaultLayout {
     menu: [
       { text: 'Home', path: '/' },
       { text: 'Admin', path: '/admin', requiredPermissions: ['view-secret'] },
+      { text: 'Task', path: '/task', requiredPermissions: ['manage-task'] },
     ],
   };
 }
