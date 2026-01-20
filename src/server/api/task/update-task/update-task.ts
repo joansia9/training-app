@@ -5,7 +5,7 @@ import { rethrowKnownPrismaError } from '@fhss-web-team/backend-utils';
 
 const updateTaskInput = z.object({
   id: z.string(),
-  newStatus: z.enum(TaskStatus).optional(), //added optional part bc if statement always truthy error
+  newStatus: z.enum(TaskStatus), //added optional part bc if statement always truthy error
   newDescription: z.string(),
   newTitle: z.string(),
 });
@@ -36,18 +36,17 @@ export const updateTask = authorizedProcedure
       let calculateCompleteAt: Date | null = oldTask.completedDate;
 
       // status
-      if (opts.input.newStatus) {
-        if (opts.input.newStatus != oldTask.status) {
-          if (opts.input.newStatus == 'Complete') {
-            //calculate completed at
-            calculateCompleteAt = new Date();
-          }
 
-          // not complete
-          else if (oldTask.status === 'Complete') {
-            //complete date = null
-            calculateCompleteAt = null;
-          }
+      if (opts.input.newStatus != oldTask.status) {
+        if (opts.input.newStatus == 'Complete') {
+          //calculate completed at
+          calculateCompleteAt = new Date();
+        }
+
+        // not complete
+        else if (oldTask.status === 'Complete') {
+          //complete date = null
+          calculateCompleteAt = null;
         }
       }
 
