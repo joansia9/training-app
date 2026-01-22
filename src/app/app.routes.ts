@@ -23,7 +23,7 @@ export const routes: Routes = [
         canActivate: [permissionGuard<Permission>(['view-secret'])],
       },
       {
-        path: 'user',
+        path: 'task',
         component: TasksPage,
         canActivate: [permissionGuard<Permission>(['manage-task'])],
       },
