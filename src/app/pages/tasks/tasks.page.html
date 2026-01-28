@@ -22,9 +22,8 @@
 <!-- task list -->
 <section>
   @for (task of taskResource.value()?.data; track task.id) {
-    <div>
-      <h2>{{ task.title }}</h2>
-      <p>{{ task.description }}</p>
-    </div>
+    <app-task-card
+      [initialTaskValue]="task"
+      (taskDeleted)="taskDeleted()"></app-task-card>
   }
 </section>
