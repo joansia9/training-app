@@ -26,9 +26,8 @@ type TaskCard = {
   description: string;
   status: TaskStatus;
   completedDate: Date | null;
-  // createdAt: Date;
-  // updatedAt: Date;
-  // userId: string;
+
+  userId: string;
 };
 
 @Component({

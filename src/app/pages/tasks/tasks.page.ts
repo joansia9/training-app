@@ -4,10 +4,18 @@ import { trpcResource } from '@fhss-web-team/frontend-utils';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { TaskCardComponent } from './task-card/task-card.component';
+import { NewTaskComponent } from './new-task/new-task.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-tasks',
-  imports: [MatProgressSpinnerModule, MatPaginator, TaskCardComponent],
+  imports: [
+    MatProgressSpinnerModule,
+    MatPaginator,
+    TaskCardComponent,
+    MatIconModule,
+  ],
   templateUrl: './tasks.page.html',
   styleUrl: './tasks.page.scss',
 })
@@ -39,5 +47,19 @@ export class TasksPage {
     ) {
       this.paginator().previousPage();
     }
+  }
+
+  private readonly dialog = inject(MatDialog);
+
+  // by closing the modal we saved the task correctly and we want to refresh too
+  protected openCreateDialog() {
+    this.dialog
+      .open(NewTaskComponent)
+      .afterClosed()
+      .subscribe(isSaved => {
+        if (isSaved) {
+          this.taskResource.refresh();
+        }
+      });
   }
 }

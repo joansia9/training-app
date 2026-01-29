@@ -28,6 +28,12 @@
   }
 </section>
 
+<button (click)="openCreateDialog()" aria-label="Create task" mat-fab>
+  <mat-icon>add</mat-icon>
+</button>
+
+<!-- note to update training instructions -->
+
 <!-- <section>
   @for (task of taskResource.value()?.data; track task.id) {
   <app-task-card
