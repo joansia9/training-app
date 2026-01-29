@@ -49,6 +49,7 @@ export class TasksPage {
     }
   }
 
+  //easy to work with modals
   private readonly dialog = inject(MatDialog);
 
   // by closing the modal we saved the task correctly and we want to refresh too
