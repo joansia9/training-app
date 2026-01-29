@@ -45,8 +45,8 @@
     </mat-card-content>
 
     <mat-card-actions>
-      @if (state.value()?.completedAt) {
-        <p>Completed: {{ state.value()?.completedAt | date }}</p>
+      @if (state.value()?.completedDate) {
+        <p>Completed: {{ state.value()?.completedDate | date }}</p>
       }
       @if (deleteResource.error()) {
         <p class="error">Failed to delete task, try again</p>

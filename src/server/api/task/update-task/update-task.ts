@@ -11,11 +11,11 @@ const updateTaskInput = z.object({
 });
 
 const updateTaskOutput = z.object({
-  id: z.string(),
   status: z.enum(TaskStatus),
-  createdAt: z.date(),
-  updatedAt: z.date(),
   completedDate: z.date().nullable(),
+  title: z.string(),
+  description: z.string(),
+
   userId: z.string(),
 });
 

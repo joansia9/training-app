@@ -23,7 +23,15 @@
 <section>
   @for (task of taskResource.value()?.data; track task.id) {
     <app-task-card
-      [initialTaskValue]="task"
+      [initialState]="task"
       (taskDeleted)="taskDeleted()"></app-task-card>
   }
 </section>
+
+<!-- <section>
+  @for (task of taskResource.value()?.data; track task.id) {
+  <app-task-card
+    [initialTaskValue]="task"
+    (taskDeleted)="taskDeleted()"></app-task-card>
+  }
+</section> -->
