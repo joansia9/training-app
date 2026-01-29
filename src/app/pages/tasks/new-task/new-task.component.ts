@@ -24,6 +24,7 @@ export class NewTaskComponent {
 
   //saving new task and notice manual refresh
   private readonly trpc = inject(TRPC_CLIENT);
+
   protected readonly createTask = trpcResource(
     this.trpc.task.createTask.mutate,
     () => ({

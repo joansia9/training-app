@@ -1,4 +1,6 @@
-<!-- error handling -->
+<!-- error handling and filling out -->
+
+<h3 mat-dialog-title>Create Task</h3>
 
 <mat-dialog-content>
   <mat-form-field>
@@ -13,18 +15,6 @@
   @if (createTask.error()) {
     <p class="error">Failed to save task, try again</p>
   }
-</mat-dialog-content>
-
-<h3 mat-dialog-title>Create Task</h3>
-<mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="newTitle" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <textarea matInput [(ngModel)]="newDescription"></textarea>
-  </mat-form-field>
 </mat-dialog-content>
 
 <!-- save and cancel -->
