@@ -4,7 +4,7 @@ import { seed } from '../../prisma/seed/seed';
 test.describe('Task page', () => {
   test.beforeEach(async ({ page }) => {
     // fresh seed before each test
-    //await seed();
+    await seed();
 
     // sign in as the task user and then redirect to the task page
     await page.goto('/proxy?net_id=task&next_uri=%2Ftasks');
@@ -39,5 +39,18 @@ test.describe('Task page', () => {
     await titleInput.fill('');
     await descriptionInput.fill('Description');
     await expect(saveButton).toBeDisabled();
+
+    //testing white space in fields
+    await titleInput.fill('    ');
+    await descriptionInput.fill('Description');
+    await expect(saveButton).toBeDisabled();
+
+    await titleInput.fill('Title');
+    await descriptionInput.fill('    ');
+    await expect(saveButton).toBeDisabled();
+
+    await titleInput.fill('Title');
+    await descriptionInput.fill('Description');
+    await expect(saveButton).toBeEnabled();
   });
 });
