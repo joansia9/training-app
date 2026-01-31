@@ -24,7 +24,7 @@
   @for (task of taskResource.value()?.data; track task.id) {
     <app-task-card
       [initialState]="task"
-      (taskDeleted)="taskDeleted()"></app-task-card>
+      (deleted)="taskDeleted()"></app-task-card>
   }
 </section>
 

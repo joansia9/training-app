@@ -172,13 +172,13 @@ test.describe('Task page', () => {
     const descriptionInput = page.getByRole('textbox', { name: 'Description' });
     const saveButton = page.getByRole('button', { name: 'save' });
 
-    // create a task
+    // create a task and we expect it to save perfectly
     await createButton.click();
     await titleInput.fill('Title');
     await descriptionInput.fill('Description');
     await saveButton.click();
 
-    // cancel a delete
+    //when we click delete and this should not delete the task
     await deleteButton.click();
     await noButton.click();
     await expect(card).toBeAttached();
@@ -186,7 +186,7 @@ test.describe('Task page', () => {
     // delete
     await deleteButton.click();
     await yesButton.click();
-    //await expect(card).not.toBeAttached();
+    await expect(card).not.toBeAttached();
   });
 
   // test('pagination', async ({ page }) => {
