@@ -113,4 +113,49 @@ test.describe('Task page', () => {
     await expect(cardTitle).toHaveText(newTitle);
     await expect(cardDescription).toHaveText(newDescription);
   });
+
+  test('status menu', async ({ page }) => {
+    // status elements
+    const card = page.locator('mat-card');
+    const cardActions = card.locator('mat-card-actions');
+    const statusMenu = card.getByRole('button', { name: 'status selector' });
+    const incomplete = page.getByRole('menuitem', { name: 'Incomplete' });
+    const inProgress = page.getByRole('menuitem', { name: 'In Progress' });
+    const complete = page.getByRole('menuitem', {
+      name: 'Complete',
+      exact: true,
+    });
+
+    // edit elements
+    const createButton = page.getByRole('button', { name: 'Create task' });
+    const titleInput = page.getByRole('textbox', { name: 'Title' });
+    const descriptionInput = page.getByRole('textbox', { name: 'Description' });
+    const saveButton = page.getByRole('button', { name: 'save' });
+
+    // same as create a task and saving
+    await createButton.click();
+    await titleInput.fill('Title');
+    await descriptionInput.fill('Description');
+    await saveButton.click();
+
+    // click on the status icon and expect to change the background color to its corresponding status
+    await statusMenu.click();
+    await inProgress.click();
+    await expect(statusMenu).toHaveCSS('background-color', 'rgb(255, 183, 0)');
+    await statusMenu.click();
+    await incomplete.click();
+    await expect(statusMenu).toHaveCSS('background-color', 'rgb(230, 23, 68)');
+    await statusMenu.click();
+    await complete.click();
+    await expect(statusMenu).toHaveCSS('background-color', 'rgb(16, 161, 112)');
+
+    // check for completed date to RIgHT NOW
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    await expect(cardActions).toContainText(`Completed: ${formattedDate}`);
+  });
 });
