@@ -7,7 +7,7 @@ test.describe('Task page', () => {
     await seed();
 
     // sign in as the task user and then redirect to the task page
-    await page.goto('/proxy?net_id=task&next_uri=%2Ftasks');
+    await page.goto('/proxy?net_id=jm123&next_uri=%2Ftask');
   });
 
   test('create task', async ({ page }) => {
@@ -52,5 +52,65 @@ test.describe('Task page', () => {
     await titleInput.fill('Title');
     await descriptionInput.fill('Description');
     await expect(saveButton).toBeEnabled();
+
+    // Cancel
+    await cancelButton.click();
+    await expect(card).not.toBeAttached();
+
+    // Save
+    await expect(createButton).toBeVisible();
+    await expect(createButton).toBeEnabled();
+    await createButton.click();
+    await titleInput.fill('Title');
+    await descriptionInput.fill('Description');
+    await saveButton.click();
+    await expect(card).toBeAttached();
+  });
+
+  test('edit mode', async ({ page }) => {
+    //finding the highlighted elements again
+    //title and description elemnts
+    const oldTitle = 'Old title';
+    const oldDescription = 'Old description';
+    const newTitle = 'New title';
+    const newDescription = 'New description';
+
+    // card elements
+    const card = page.locator('mat-card');
+    const editButton = card.getByLabel('toggle edit mode');
+    const cardTitle = card.locator('mat-card-title');
+    const cardDescription = card.locator('mat-card-content');
+
+    // edit elements
+    const createButton = page.getByRole('button', { name: 'Create task' });
+    const titleInput = page.getByRole('textbox', { name: 'Title' });
+    const descriptionInput = page.getByRole('textbox', { name: 'Description' });
+    const cancelButton = page.getByRole('button', { name: 'cancel' });
+    const saveButton = page.getByRole('button', { name: 'save' });
+
+    // create a task where we click the create Button and fill the title and description and save
+    //expect it to save
+    await createButton.click();
+    await titleInput.fill(oldTitle);
+    await descriptionInput.fill(oldDescription);
+    await saveButton.click();
+
+    // click the edit button, fill in the title and description and we click the CANCEL button
+    //expect htis to have the old title and old description so this did NOT save
+    await editButton.click();
+    await titleInput.fill(newTitle);
+    await descriptionInput.fill(newDescription);
+    await cancelButton.click();
+    await expect(cardTitle).toHaveText(oldTitle);
+    await expect(cardDescription).toHaveText(oldDescription);
+
+    // editing and saving so we click the edit button, fill title and description, and click SAVE button
+    //we expect to have NEW title and NEW description
+    await editButton.click();
+    await titleInput.fill(newTitle);
+    await descriptionInput.fill(newDescription);
+    await saveButton.click();
+    await expect(cardTitle).toHaveText(newTitle);
+    await expect(cardDescription).toHaveText(newDescription);
   });
 });
