@@ -158,4 +158,82 @@ test.describe('Task page', () => {
     });
     await expect(cardActions).toContainText(`Completed: ${formattedDate}`);
   });
+
+  test('delete task', async ({ page }) => {
+    // card elements
+    const card = page.locator('mat-card');
+    const deleteButton = page.getByLabel('delete task');
+    const noButton = page.getByRole('button', { name: 'No' });
+    const yesButton = page.getByRole('button', { name: 'Yes' });
+
+    // edit elements
+    const createButton = page.getByRole('button', { name: 'Create task' });
+    const titleInput = page.getByRole('textbox', { name: 'Title' });
+    const descriptionInput = page.getByRole('textbox', { name: 'Description' });
+    const saveButton = page.getByRole('button', { name: 'save' });
+
+    // create a task
+    await createButton.click();
+    await titleInput.fill('Title');
+    await descriptionInput.fill('Description');
+    await saveButton.click();
+
+    // cancel a delete
+    await deleteButton.click();
+    await noButton.click();
+    await expect(card).toBeAttached();
+
+    // delete
+    await deleteButton.click();
+    await yesButton.click();
+    //await expect(card).not.toBeAttached();
+  });
+
+  // test('pagination', async ({ page }) => {
+  //   await seed({ count: '100' });
+  //   await page.reload();
+
+  //   const cards = page.locator('app-task-card');
+  //   const display = page.getByRole('group');
+  //   const firstButton = page.getByRole('button', { name: 'First page' });
+  //   const previousButton = page.getByRole('button', { name: 'Previous page' });
+  //   const nextButton = page.getByRole('button', { name: 'Next page' });
+  //   const lastButton = page.getByRole('button', { name: 'Last page' });
+
+  //   await expect(display).toContainText('1 – 12 of 100');
+  //   await nextButton.click();
+  //   await expect(cards).toHaveCount(12);
+  //   await expect(display).toContainText('13 – 24 of 100');
+  //   await nextButton.click();
+  //   await expect(cards).toHaveCount(12);
+  //   await expect(display).toContainText('25 – 36 of 100');
+  //   await nextButton.click();
+  //   await expect(cards).toHaveCount(12);
+  //   await expect(display).toContainText('37 – 48 of 100');
+  //   await nextButton.click();
+  //   await expect(cards).toHaveCount(12);
+  //   await expect(display).toContainText('49 – 60 of 100');
+  //   await nextButton.click();
+  //   await expect(cards).toHaveCount(12);
+  //   await expect(display).toContainText('61 – 72 of 100');
+  //   await nextButton.click();
+  //   await expect(cards).toHaveCount(12);
+  //   await expect(display).toContainText('73 – 84 of 100');
+  //   await nextButton.click();
+  //   await expect(cards).toHaveCount(12);
+  //   await expect(display).toContainText('85 – 96 of 100');
+  //   await nextButton.click();
+  //   await expect(cards).toHaveCount(4);
+  //   await expect(display).toContainText('97 – 100 of 100');
+
+  //   await previousButton.click();
+  //   await expect(display).toContainText('85 – 96 of 100');
+  //   await expect(cards).toHaveCount(12);
+  //   await firstButton.click();
+  //   await expect(display).toContainText('1 – 12 of 100');
+  //   await expect(cards).toHaveCount(12);
+  //   await lastButton.click();
+  //   await expect(display).toContainText('97 – 100 of 100');
+  //   await expect(cards).toHaveCount(4);
+  // });
 });

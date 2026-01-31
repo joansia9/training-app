@@ -39,15 +39,6 @@ export class TasksPage {
   );
 
   protected readonly paginator = viewChild.required(MatPaginator); //this function wants a paginator component we can get through viewChild
-  protected async taskDeleted() {
-    await this.taskResource.refresh();
-    if (
-      this.pageOffset() != 0 &&
-      this.taskResource.value()?.data.length === 0
-    ) {
-      this.paginator().previousPage();
-    }
-  }
 
   //easy to work with modals
   private readonly dialog = inject(MatDialog);
@@ -62,5 +53,16 @@ export class TasksPage {
           this.taskResource.refresh();
         }
       });
+  }
+
+  protected async taskDeleted() {
+    await this.taskResource.refresh();
+
+    if (
+      this.pageOffset() != 0 &&
+      this.taskResource.value()?.data.length === 0
+    ) {
+      this.paginator().previousPage();
+    }
   }
 }

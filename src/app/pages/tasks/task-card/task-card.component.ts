@@ -101,6 +101,7 @@ export class TaskCardComponent {
       .afterClosed()
       .subscribe(result => {
         if (result) {
+          console.log('deleted');
           this.deleteResource.refresh().then(success => {
             if (success) {
               this.deleted.emit();
